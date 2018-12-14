@@ -141,4 +141,30 @@ SimWorldUpdate:
 传过来的数据用于message的check,含有数据为timestamp和world(其中world中还有sequenceNum)
 
 
+--------------------------------------------------------------------------------------------
+                                数据发送部分
+--------------------------------------------------------------------------------------
+
+------------------------------map------------------------------------------
+type:RetrieveMapData
+传过去的element是一个对象,对象中每个属性即key的值即value又是一个数组
+
+type:RetrieveRelativeMapData
+
+--------------------------------point_cloud----------------------------------
+type:TogglePointCloud
+传过去的值enable的值为布尔值
+
+
+-------------------------------realtime----------------------------------------------
+function:clearInterval
+type:RequestSimulationWorld
+planning : requestPlanningData,
+
+
+--------------------------------offline传过去的数值---------------------------------------
+ type: "requestRoutePath"
+                recordId: recordId,
+                frameId: frameId,
+
 
