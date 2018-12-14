@@ -161,6 +161,74 @@ function:clearInterval
 type:RequestSimulationWorld
 planning : requestPlanningData,
 
+function:requestRoute
+        type: "SendRoutingRequest",
+            start: start,
+            end: end,
+            waypoint: waypoint,
+
+function:requestDefaultRoutingEndPoint
+        type:GetDefaultEndPoint,没有传其他数据
+
+function:resetBackend
+        type: "Reset",没有其他数据
+
+function:dumpMessages
+        type:Dump
+
+function:changeSetupMode
+        type: "ChangeMode",
+            new_mode: mode,
+
+function:changeMap
+        type: "ChangeMap",
+            new_map: map,
+
+function:changeVeicle
+        type: "ChangeVehicle",
+            new_vehicle: vehcile,
+
+
+function:executeModeCommand
+        type: "ExecuteModeCommand",
+            command: command,
+
+function:executeModuleCommand
+        type: "ExecuteModuleCommand",
+            module: module,
+            command: command,
+
+function:executeToolCommand
+         type: "ExecuteToolCommand",
+            tool: tool,
+            command: command,
+
+function:changeDrivingMode
+        type: "ChangeDrivingMode",
+            new_mode: mode,
+
+function:submitDriveEvent
+        type: "SubmitDriveEvent",
+            event_time_ms: eventTimeMs,
+            event_msg: eventMessage,
+            event_type: eventTypes,
+
+function:sendAudioPiece
+        type: "AudioPiece",
+            data: btoa(String.fromCharCode(...data)),
+
+function:toggleSimControl
+        type: "ToggleSimControl",
+            enable: enable,
+                                                                               
+function:requestRoutePath
+        type: "RequestRoutePath",
+
+function:publishNavigationInfo
+        this.websocket.send(data);这个function中没有type是直接send data过去的
+
+
+
 
 --------------------------------offline传过去的数值---------------------------------------
  type: "requestRoutePath"
