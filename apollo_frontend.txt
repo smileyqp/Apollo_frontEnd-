@@ -119,4 +119,26 @@ type:PointCloudStatus:传进去的而数据为数组点集合
 -------------------------------websocket map数据接收部分-----------------------------
 传过来一串map相关数据的数组
 
+-------------------------offline数据接收部分;这个是离线部分咩------------------------------------
+GroundMetadata传过来的数据中包含这些,在render的tileground中,初始化使用这些数据
+        this.metadata = {
+            tileLength: metadata.tile * metadata.mpp,
+            left: metadata.left,
+            top: metadata.top,
+            numCols: metadata.wnum,
+            numRows: metadata.hnum,
+            mpp: metadata.mpp,
+            tile: metadata.tile,
+            imageUrl: metadata.image_url,
+        };
+
+FrameCount:传过来的数据为一串string,但是这个string是只含有数字的,之后会用parseInt将其解析出来使用
+
+RoutePath:
+传过来的数据为一个对象有两个属性routingTime和rouotePath,分别有值,键值对形式
+
+SimWorldUpdate:
+传过来的数据用于message的check,含有数据为timestamp和world(其中world中还有sequenceNum)
+
+
 
