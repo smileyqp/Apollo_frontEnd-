@@ -1,19 +1,14 @@
-Apollo的dreamview部分的frontEnd源码分析
-
-This is something about Apollo'dreamvie frontEnd.And this is just websocket part of Apollo.Only record about something that is my understanding of it's data translating from backend to frontend
-
-
-
-
 前台消息接收方式为:监听端口49923,在`webworker`接收消息`message`,并判断消息的`source`,消息的`source`分为三种`map`,`map_cloud`以及`realtime`,此时给消息`type`,即`realtime`为`SimWorldUpdate`,`map`为`MapData`,`point_cloud`为
+
 
 接收数据message:
 
+
 ---------------------------------realtime接收数据部分---------------------------------------------
 
-##### 1.HMIConfig
+#####1.HMIConfig
 
-###### 接收的为导航栏部分数据
+######接收的为导航栏部分数据
 
 > - dockerImage:字符串文本格式,显示为弹出框版本信息.EX:apolloauto/apollo:dev-x86_64-20180906_2002
 > - modes:模式setup mode的String数组,是mode的下拉列表菜单
@@ -25,7 +20,7 @@ This is something about Apollo'dreamvie frontEnd.And this is just websocket part
 
 传输过去:`{type:ChangeMap,new_map: map选项的value值}`
 
-###### 接收的为左侧为module controller的模块数据
+######接收的为左侧为module controller的模块数据
 
 modules:接收的为对象数据结构为` {key1：value1, key2：value2, ...} `,键值对结构.接收过来的是键值对形式的对象,之后将其传入到映射中取值
         传输过去:这边
@@ -42,8 +37,7 @@ modules:接收的为对象数据结构为` {key1：value1, key2：value2, ...} `
 hardware:该模块与上面模块接收相同都是键值对,但是该模块没有发送值只有接收其status在update状态的时候
 改变其值
 
-##### 2.HMIStatus
-
+#####2.HMIStatus
 主要是上一步的初始化之后的状态更新(涉及function有`updateStatus()`和`updateGroundImage()`)
 
 `currentMode`:string类型字符串,推测为初始化之后服务器端穿过来的一系列mode即模式之后前段选择那种模式>给后端传过去,再之后后端讲这种模式返回来传给前端即在更新状态时候显示
@@ -60,8 +54,7 @@ hardware:该模块与上面模块接收相同都是键值对,但是该模块没�
 
 `passengerMsg`:这是一个string类型的消息
 
-##### 3.VehicleParam
-
+#####3.VehicleParam
 json格式数据类似于 
 
 ```shell
@@ -77,42 +70,37 @@ vehicleParam = {
 }
 ```
 
+
 这个中是直接传过来一个键值对数值,将这个键值对的值直接传给`vehicleParam`参数,之后在store的`update(world){}`这个function中调用
 
-##### 4.SimControlStatus
-
+#####4.SimControlStatus
 穿过来的值只是触发button的enabled
 
 ```shell
 STORE.setOptionStatus('simControlEnabled', message.enabled);
 ```
 
-##### 5.SimWorldUpdate
-
+#####5.SimWorldUpdate
 ```shell
 timestamp
 world.sequenceNum
 ```
 
-```
-//autoDrivingCar键值对结构:
-positionX,positionY,heading
-```
+    //autoDrivingCar键值对结构:
+    positionX,positionY,heading
 
-```
-    navigationPath键值对map
-    laneMarker
-    planningTrajectory
-```
 
-##### 6.MapElementIds
+        navigationPath键值对map
+        laneMarker
+        planningTrajectory
+
+#####6.MapElementIds
 
 ```shell
 mapHash,mapElementIds,mapRadius
 ```
 
-##### 7.DefaultEndPoint
-
+#####7.DefaultEndPoint
 ​        `poi`数组,数组里面包含`map`,`map`包含`name`和`waypoint`格式如下:
 
 ```shell
@@ -120,8 +108,7 @@ Map from POI name to its x,y coordinates,
 {POI-1: [{x: 1.0, y: 1.2}, {x: 101.0, y: 10.2}]}
 ```
 
-##### 8.RoutePath
-
+#####8.RoutePath
 `routingTime,routePath`监听三种传过来的数据`source`,三种`source`分别为`realtime,map,point_cloud:
 reaktime`的`message type`为`SimWorldUpdate`
 
@@ -160,13 +147,9 @@ this.metadata = {
 `SimWorldUpdate`:
 传过来的数据用于`message`的`check`,含有数据为`timestamp`和`world(其中world中还有sequenceNum)`
 
-------
-
-```
-                            数据发送部分
-```
-
-------
+--------------------------------------------------------------------------------------------
+                                数据发送部分
+--------------------------------------------------------------------------------------
 
 ------------------------------map------------------------------------------
 type:RetrieveMapData
@@ -181,6 +164,7 @@ type:RetrieveRelativeMapData
 ```shell
 type:TogglePointCloud
 ```
+
 
 传过去的值`enable`的值为布尔值
 
@@ -263,6 +247,7 @@ function:publishNavigationInfo
                 recordId: recordId,
                 frameId: frameId,
 ```
+
 
 
 
