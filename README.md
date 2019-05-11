@@ -1,6 +1,6 @@
-Apollo的dreamview部分的frontEnd源码分析
+`Apollo`的`dreamview`部分的`frontEnd`源码分析
 
-This is something about Apollo'dreamvie frontEnd.And this is just websocket part of Apollo.Only record about something that is my understanding of it's data translating from backend to frontend
+`This is something about Apollo'dreamvie frontEnd.And this is just websocket part of Apollo.Only record about something that is my understanding of it's data translating from backend to frontend`
 
 
 
